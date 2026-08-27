@@ -277,9 +277,11 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .modal-check { display: grid; place-items: center; width: 3rem; height: 3rem; margin-bottom: 1rem; border-radius: 50%; background: #d4ead9; color: var(--green); font-size: 1.5rem; font-weight: 800; }
 .confirmation-modal h2 { font-size: 1.5rem; font-weight: 800; }
 .confirmation-modal p { color: #746650; line-height: 1.6; }
-.service-desk-strip { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding: 1.4rem 1.6rem; color: #fff; background: var(--ink); border-radius: .9rem; box-shadow: 0 .8rem 1.8rem rgba(33,28,21,.14); }
+.service-desk-strip { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding: 1.5rem 1.75rem; color: #fff; background: linear-gradient(110deg, #211c15 0%, #342518 65%, #4b2b19 100%); border: 1px solid rgba(246,230,189,.2); border-radius: .9rem; box-shadow: 0 .8rem 1.8rem rgba(33,28,21,.14); }
+.service-desk-copy { position: relative; padding-left: 1.1rem; }
+.service-desk-copy::before { position: absolute; left: 0; top: .2rem; bottom: .2rem; width: 2px; content: ''; background: #d8ae4c; }
 .service-desk-strip .eyebrow { color: #d8ae4c; margin-bottom: .35rem; }
-.service-number { display: block; color: #fff; font-size: clamp(1.35rem, 3vw, 2rem); font-weight: 800; text-decoration: none; }
+.service-number { display: block; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: clamp(1.35rem, 3vw, 2rem); font-weight: 800; letter-spacing: .02em; text-decoration: none; }
 .service-number:hover { color: #f6e6bd; }
 .service-desk-strip small { color: #b9ab94; }
 .service-actions { display: flex; gap: .6rem; flex-wrap: wrap; }
@@ -319,6 +321,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .new-detail { grid-template-columns: 1fr; gap: 1rem; }
   .new-detail img { height: 170px; }
   .service-desk-strip { align-items: flex-start; flex-direction: column; padding: 1.25rem; }
+  .service-desk-copy { padding-left: .85rem; }
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
