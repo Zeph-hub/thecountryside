@@ -1,13 +1,14 @@
-name: Deploy Countryside site
+name: Deploy Countryside Site
 
 on:
   push:
     branches:
       - main
+
   workflow_dispatch:
 
 concurrency:
-  group: production-deploy
+  group: countryside-dev-deploy
   cancel-in-progress: true
 
 permissions:
@@ -15,24 +16,31 @@ permissions:
 
 jobs:
   deploy:
-    name: Upload site to shared hosting
+    name: Deploy to Truehost DEV
     runs-on: ubuntu-latest
+
     steps:
-      - name: Check out repository
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Deploy static site over FTP or FTPS
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      - name: Deploy site to Truehost
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ${{ secrets.FTP_PROTOCOL || 'ftps' }}
-          port: ${{ secrets.FTP_PORT || '21' }}
+          protocol: ftps
+          port: 21
           server-dir: ${{ secrets.FTP_SERVER_DIR }}
           local-dir: ./
           exclude: |
+            **/.git*
             **/.git*/**
             **/.github/**
             **/.kombai/**
+            **/node_modules/**
+            **/.env
+            **/.env.*
             **/README.md
+            **/.DS_Store
+            **/Thumbs.db
