@@ -21,6 +21,7 @@ const $ = (selector) => document.querySelector(selector);
 const money = (value) => `KES ${Number(value).toLocaleString()}`;
 const validScreens = ['home', 'stay', 'experiences', 'explore', 'plan', 'contact'];
 const weatherLabels = { 0: 'Clear skies', 1: 'Mainly clear', 2: 'Partly cloudy', 3: 'Overcast', 45: 'Foggy', 48: 'Rime fog', 51: 'Light drizzle', 53: 'Drizzle', 55: 'Heavy drizzle', 61: 'Light rain', 63: 'Rain', 65: 'Heavy rain', 71: 'Light snow', 80: 'Rain showers', 81: 'Rain showers', 82: 'Heavy showers', 95: 'Thunderstorms' };
+const whatsappOpener = 'Hello The Countryside Marigat, I would like to enquire about accommodation and experiences.';
 const routeFor = (path) => {
   const segment = path.replace(/\/$/, '').split('/').pop();
   return validScreens.includes(segment) ? segment : 'home';
@@ -76,6 +77,12 @@ document.addEventListener('click', (event) => {
     event.preventDefault();
     navigateTo(target.dataset.screen);
   }
+});
+
+document.querySelectorAll('a[href*="wa.me/"]').forEach((link) => {
+  const url = new URL(link.href);
+  if (!url.searchParams.has('text')) url.searchParams.set('text', whatsappOpener);
+  link.href = url.toString();
 });
 
 let selectedRoom = rooms[0];
