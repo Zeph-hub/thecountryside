@@ -1,46 +1,34 @@
-name: Deploy Countryside Site
+steps:
+  - name: Checkout repository
+    uses: actions/checkout@v4
 
-on:
-  push:
-    branches:
-      - main
+  - name: Show deployment paths
+    run: |
+      echo "Current directory:"
+      pwd
+      echo "Repository contents:"
+      ls -la
+      echo "FTP server directory:"
+      echo "${{ secrets.FTP_SERVER_DIR }}"
 
-  workflow_dispatch:
-
-concurrency:
-  group: countryside-dev-deploy
-  cancel-in-progress: true
-
-permissions:
-  contents: read
-
-jobs:
-  deploy:
-    name: Deploy to Truehost DEV
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Deploy site to Truehost
-        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftps
-          port: 21
-          server-dir: ${{ secrets.FTP_SERVER_DIR }}
-          local-dir: ./
-          exclude: |
-            **/.git*
-            **/.git*/**
-            **/.github/**
-            **/.kombai/**
-            **/node_modules/**
-            **/.env
-            **/.env.*
-            **/README.md
-            **/.DS_Store
-            **/Thumbs.db
+  - name: Deploy site to Truehost
+    uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+    with:
+      server: ${{ secrets.FTP_SERVER }}
+      username: ${{ secrets.FTP_USERNAME }}
+      password: ${{ secrets.FTP_PASSWORD }}
+      protocol: ftps
+      port: 21
+      server-dir: ${{ secrets.FTP_SERVER_DIR }}
+      local-dir: ./
+      exclude: |
+        **/.git*
+        **/.git*/**
+        **/.github/**
+        **/.kombai/**
+        **/node_modules/**
+        **/.env
+        **/.env.*
+        **/README.md
+        **/.DS_Store
+        **/Thumbs.db
